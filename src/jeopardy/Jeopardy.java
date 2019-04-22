@@ -35,6 +35,7 @@ public class Jeopardy implements ActionListener {
 	private JButton firstButton;
 	private JButton secondButton;
 	private JButton thirdButton, fourthButton;
+	private JButton fifthButton;
 	private JPanel quizPanel;
 	private int score = 0;
 	private JLabel scoreBox = new JLabel("0");
@@ -84,9 +85,20 @@ public class Jeopardy implements ActionListener {
 		firstButton.addActionListener(this);
 		secondButton.addActionListener(this);
 
+
 		// 12. Write the code to complete the actionPerformed() method below
 
 		// 13. Add buttons so that you have $200, $400, $600, $800 and $1000 questions
+		thirdButton = createButton("$600");
+		fourthButton = createButton("$800");
+		fifthButton = createButton("$1000");
+		thirdButton.addActionListener(this);
+		fourthButton.addActionListener(this);
+		fifthButton.addActionListener(this);
+		quizPanel.add(thirdButton);
+		quizPanel.add(fourthButton);
+		quizPanel.add(fifthButton);
+	
 		
 		 /*
 		 * [optional] Use the showImage or playSound methods when the user answers a
@@ -114,7 +126,7 @@ public class Jeopardy implements ActionListener {
 
 		// Return your new button instead of the temporary button
 
-		return new JButton("temporary button");
+		return button;
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -125,44 +137,83 @@ public class Jeopardy implements ActionListener {
 		JButton buttonPressed = (JButton) e.getSource();
 		// If the buttonPressed was the firstButton
 		if(buttonPressed==firstButton) {
-			askQuestion("Who is on the half dollar?","Who is John F. Kennedy?", 200 );
+			
+		// Call the askQuestion() method
+			askQuestion("Who is on the half dollar?","John F. Kennedy", 200 );
+			firstButton.setText(null);
 		}
-
-			// Call the askQuestion() method
  
 		// Complete the code in the askQuestion() method. When you play the game, the score should change.
 
 		// If the buttonPressed was the secondButton
+			if(buttonPressed==fifthButton) {
+				
+			
 
 			// Call the askQuestion() method with a harder question
+				askQuestion("The alignment of free and slaves states directly led to\n" + 
+						"\n" + 
+						"A. the passage of the Northwest Ordinance\n" + 
+						"\n" + 
+						"B. the formation of the Republican Party\n" + 
+						"\n" + 
+						"C. repudiation of Manifest Destiny\n" + 
+						"\n" + 
+						"D. an increase in nativist sentiment", "B", 1000);
+				fifthButton.setText(null);
+			}
+			if(buttonPressed==fourthButton) {
+				askQuestion("What year was Texas made a state?", "1845", 600);
+				fourthButton.setText(null);
+			}
+			if(buttonPressed==thirdButton) {
+				askQuestion("What year was Louisiana made a state?", "1812", 800);
+				thirdButton.setText(null);
+			}
+			if(buttonPressed==secondButton) {
+				askQuestion("Who is on the 50 dollar bill?", "Ulysses S. Grant", 400);
+				secondButton.setText(null);
+			}
 
 		// Clear the text on the button that was pressed (set the button text to nothing)
+		
+		
 
 	}
 
 	private void askQuestion(String question, String correctAnswer, int prizeMoney) {
 		
 		// Use the playJeopardyTheme() method to play music while the use thinks of an answer
-		
+		playJeopardyTheme();
 		// Remove this temporary message and replace it with a pop-up that asks the user the question
-		JOptionPane.showInputDialog(null, question);
+		String answer = JOptionPane.showInputDialog(null, question);
 		
 		// Stop the theme music when they have entered their response. Hint: use the sound variable 
-		
+		sound.stop();
 		// If the answer is correct
+		if(answer.equalsIgnoreCase(correctAnswer)) {
+			
 
 			// Increase the score by the prizeMoney
+			score+=prizeMoney;
 
 			// Pop up a message to tell the user they were correct
+			JOptionPane.showMessageDialog(null, "Correct");
+		}
 
 		// Otherwise
+		else {
 
 			// Decrement the score by the prizeMoney
+			score-=prizeMoney;
 
 			// Pop up a message to tell the user they were wrong and give them the correct answer
-
+			JOptionPane.showMessageDialog(null, "The correct answer was "+correctAnswer);
+		}
 		// Call the updateScore() method
+			updateScore();
 
+	
 	}
 
 	public void playJeopardyTheme() {
