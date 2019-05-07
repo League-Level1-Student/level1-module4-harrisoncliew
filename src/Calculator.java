@@ -26,6 +26,7 @@ void setup() {
 	panel.add(button);
 	field1.setSize(50, 1);
 	field2.setSize(50,1);
+	
 	panel.add(button1);
 	panel.add(button2);
 	panel.add(button3);
