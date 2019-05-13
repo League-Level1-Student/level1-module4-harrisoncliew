@@ -17,12 +17,13 @@ void setup() {
 	button.addActionListener(this);
 	field1.setSize(50,1);
 	field2.setSize(50,1);
-	panel.add(button);
 	panel.add(field1);
+	panel.add(button);
 	panel.add(field2);
 	frame.add(panel);
 	frame.setVisible(true);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.pack();
 }
      /**
      * Method to test whether a character is a letter or not.
