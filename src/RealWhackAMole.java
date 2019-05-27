@@ -1,3 +1,4 @@
+import java.applet.AudioClip;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -59,11 +60,16 @@ public static void main(String[] args) {
 	          + ((timeAtEnd.getTime() - timeAtStart.getTime()) / 1000.00 / molesWhacked)
 	          + " moles per second.");
 	}
+	private void playSound(String fileName) { 
+	    AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
+	    sound.play();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()!=mole) {
+			playSound("hit.wav");
 			buttonwhacked++;
 			notmolewhacked++;
 			frame.dispose();
